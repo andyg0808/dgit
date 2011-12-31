@@ -48,7 +48,7 @@ git checkout "$uname"
 
 #Now reconfigure parent repo
 cd "$list/$repo"
-git remote add "$username" "$absname"
+git remote add "$uname" "$absname"
 
 #if [ ! $break ]
 #then
