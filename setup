@@ -1,0 +1,60 @@
+#!/bin/bash
+list="$(dirname "$0")/locationlist"
+cd "$list"
+
+repo=$(zenity --list --text="Choose a issue to create a working folder for" --column "Issue Name" *)
+#Check that an item was chosen
+if [ ! $? -o -z "$repo" ]
+then
+	exit 0
+fi
+echo "Issue $repo chosen"
+
+folder=$(zenity --file-selection --title="Choose directory to create issue files in" --directory)
+if [ ! $? -o -z "$folder" ]
+then
+	exit 0
+fi
+echo "Folder $folder chosen"
+
+#Resolve the folder name to an absolute path
+absname=$(readlink --canonicalize-existing --no-newline "$folder")
+if [ ! $? ]
+then
+	echo "Need existing directory!"
+	exit 1
+fi
+
+cd "$absname"
+
+break=0
+
+#Clone the selected repo
+git clone "$list/$repo"
+
+#cd into the new repo
+cd "$repo"
+
+#Configure new repo
+if [ -e ../"repobranch" ]
+then
+	read uname < ../repobranch
+else
+	uname=$(logname)
+fi
+
+git branch "$uname"
+git checkout "$uname"
+
+#Now reconfigure parent repo
+cd "$list/$repo"
+git remote add "$username" "$absname"
+
+#if [ ! $break ]
+#then
+#Print success message
+	zenity --info --title="Instance set up" --text="A copy of the selected datastore has been created."
+#else
+#	zenity --error --title="Instance set up failed" --text="An error was encountered in attempting to set up the datastore. Please contact the administrator."
+
+#fi

@@ -1,0 +1,29 @@
+#!/bin/bash
+folder=$(zenity --file-selection --title="Choose directory to initialize" --directory)
+if [ ! $? -o -z "$folder" ]
+then
+	exit 0
+fi
+echo "Folder $folder chosen"
+
+#Resolve the folder name to an absolute path
+absname=$(readlink --canonicalize-existing --no-newline "$folder")
+if [ ! $? ]
+then
+	echo "Need existing directory!"
+exit 1
+fi
+
+cd "$absname"
+
+git init
+
+ln --symbolic --target-directory $(dirname "$0")/locationlist "$absname"
+
+cp $(dirname "$0")/update "$absname"
+
+git add "update"
+
+git commit -m "Added update to the repo to ensure it comes with every clone"
+
+zenity --info --title="Directory initialized" --text="The selected directory has been initialized."

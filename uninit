@@ -1,0 +1,13 @@
+#!/bin/bash
+list="$(dirname "$0")/locationlist"
+cd "$list"
+
+repo=$(zenity --list --text="Choose a issue to forget" --column "Issue Name" *)
+#Check that an item was chosen
+if [ ! $? -o -z "$repo" ]
+then
+	exit 0
+fi
+echo "Issue $repo chosen"
+
+rm "$repo" && zenity --info --title="Success" --text="Issue forgotten."

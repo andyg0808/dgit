@@ -1,0 +1,12 @@
+#!/bin/bash
+#Add all files in the directory, commit them, pull any changes since last update, and push the new files.
+git add .
+git commit -m "Automated commit."
+
+git pull "origin"
+git push "origin"
+#then
+	zenity --info --title="Updated successfully" --text="The main store has been successfully updated."
+#else
+#	zenity --error --title="Error updating" --text="There was an error updating the main store.\nPlease contact an administrator."
+#fi
