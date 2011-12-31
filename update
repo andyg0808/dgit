@@ -1,12 +1,25 @@
 #!/bin/bash
-#Add all files in the directory, commit them, pull any changes since last update, and push the new files.
+
+#Determine branch name
+if [ -e ../"repobranch" ]
+then
+	read uname < ../repobranch
+else
+	uname=$(logname)
+fi
+
+#Add all files in the directory, commit them
 git add .
 git commit -m "Automated commit."
 
-git pull "origin"
-git push "origin"
+#Pull any changes since last update
+git pull "origin" "$uname"
+
+#Push the changes to local branch since last update. Create remote branch if needed
+git push "origin" "$uname"
+
 #then
-	zenity --info --title="Updated successfully" --text="The main store has been successfully updated."
+zenity --info --title="Updated successfully" --text="The main store has been successfully updated."
 #else
 #	zenity --error --title="Error updating" --text="There was an error updating the main store.\nPlease contact an administrator."
 #fi
