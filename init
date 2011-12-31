@@ -26,4 +26,6 @@ git add "update"
 
 git commit -m "Added update to the repo to ensure it comes with every clone"
 
+chmod a+w .
+
 zenity --info --title="Directory initialized" --text="The selected directory has been initialized."
