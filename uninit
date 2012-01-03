@@ -1,5 +1,5 @@
 #!/bin/bash
-list="$(dirname "$0")/locationlist"
+list="$(cat /usr/local/etc/newstools)"
 cd "$list"
 
 repo=$(zenity --list --text="Choose a issue to forget" --column "Issue Name" *)

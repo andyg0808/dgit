@@ -1,4 +1,6 @@
 #!/bin/bash
+linkdir="$(cat /usr/local/etc/newstools)"
+
 folder=$(zenity --file-selection --title="Choose directory to initialize" --directory)
 if [ ! $? -o -z "$folder" ]
 then
@@ -18,9 +20,9 @@ cd "$absname"
 
 git init
 
-ln --symbolic --target-directory $(dirname "$0")/locationlist "$absname"
+ln --symbolic --target-directory "$linkdir" "$absname"
 
-cp $(dirname "$0")/update "$absname"
+cp /usr/local/bin/update "$absname"
 
 git add "update"
 
