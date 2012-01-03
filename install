@@ -1,0 +1,32 @@
+#!/bin/bash
+folder=$(zenity --file-selection --title="Choose standard directory to store links in:" --directory)
+if [ ! $? -o -z "$folder" ]
+then
+	exit 0
+fi
+echo "Folder $folder chosen"
+
+#Resolve the folder name to an absolute path
+absname=$(readlink --canonicalize-existing --no-newline "$folder")
+if [ ! $? ]
+then
+	echo "Need existing directory!"
+exit 1
+fi
+
+#Set the files executable
+chmod a+x init setup uninit update checkout merge
+
+#Install the files
+sudo cp init setup uninit update checkout merge /usr/local/bin/
+
+#Add a configuration file
+sudo mkdir /usr/local/etc/newstools
+sudo echo "$folder" > /usr/local/etc/newstools
+
+#Function to get the directory name:
+getlinkdir()
+{
+	linkdir="$(cat /usr/local/etc/newstools)"
+}
+
