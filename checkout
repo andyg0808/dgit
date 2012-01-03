@@ -1,0 +1,27 @@
+#!/bin/bash
+list="$(dirname "$0")/locationlist"
+cd "$list"
+
+repo=$(zenity --list --text="Choose a issue to create a working folder for" --column "Issue Name" *)
+#Check that an item was chosen
+if [ ! $? -o -z "$repo" ]
+then
+	exit 0
+fi
+echo "Issue $repo chosen"
+
+cd "$repo"
+
+current=$(git branch | ssed -R '/\*/!d; s/^\*?\s+(.*)$/\1/')
+
+branch=$(zenity --list --text="Choose a branch to checkout in this repo.\nBranch $current is currently checked out." --column "Branch" $(git branch | ssed -R 's/^\*?\s+(.*)$/\1/'))
+if [ ! $? -o -z "$branch" ]
+then
+	exit 0
+fi
+echo "Branch $branch chosen"
+
+if git checkout "$branch"
+then
+	zenity --info --title="Success" --text="Successfully checked out branch $branch."
+fi
