@@ -14,6 +14,10 @@ then
 exit 1
 fi
 
+#Make the storage folder writable by everyone
+chmod a+w "$folder"
+
+#Move to the source directory
 cd "$(dirname $0)"/bin
 
 #Set the files executable
