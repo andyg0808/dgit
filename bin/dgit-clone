@@ -5,15 +5,15 @@ list=$(conffolder)
 
 cd "$list"
 
-repo=$(zenity --list --text="Choose a issue to create a working folder for" --column "Issue Name" *)
+repo=$(zenity --list --text="Choose a repo to create a working folder for:" --column "Repo Name" *)
 #Check that an item was chosen
 if [ ! $? -o -z "$repo" ]
 then
 	exit 0
 fi
-echo "Issue $repo chosen" &>> "$dgitlog"
+echo "Repo $repo chosen" &>> "$dgitlog"
 
-folder=$(zenity --file-selection --title="Choose directory to create issue files in" --directory)
+folder=$(zenity --file-selection --title="Choose directory to clone repo in:" --directory)
 if [ ! $? -o -z "$folder" ]
 then
 	exit 0
@@ -58,7 +58,7 @@ git remote add "$uname" "$absname" &>> "$dgitlog"
 #if [ ! $break ]
 #then
 #Print success message
-	zenity --info --title="Instance set up" --text="A copy of the selected datastore has been created."
+	zenity --info --title="Repo Cloned" --text="The repo $repo has been cloned in $folder."
 #else
 #	zenity --error --title="Instance set up failed" --text="An error was encountered in attempting to set up the datastore. Please contact the administrator."
 

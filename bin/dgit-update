@@ -22,7 +22,7 @@ git pull "origin" "$uname" &>> "$dgitlog"
 git push "origin" "$uname" &>> "$dgitlog"
 
 #then
-zenity --info --title="Updated successfully" --text="The main store has been successfully updated."
+zenity --info --title="Updated Successfully" --text="The main store has been successfully updated."
 #else
 #	zenity --error --title="Error updating" --text="There was an error updating the main store.\nPlease contact an administrator."
 #fi

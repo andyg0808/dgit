@@ -5,15 +5,15 @@ list=$(conffolder)
 
 cd "$list"
 
-repo=$(zenity --list --text="Choose a issue to forget" --column "Issue Name" *)
+repo=$(zenity --list --text="Choose a repo to forget" --column "Repo Name" *)
 #Check that an item was chosen
 if [ ! $? -o -z "$repo" ]
 then
 	exit 0
 fi
-echo "Issue $repo chosen" &>> "$dgitlog"
+echo "Repo $repo chosen" &>> "$dgitlog"
 
 ls -l "$repo" &>> "$dgitlog"
 
-rm "$repo" && zenity --info --title="Success" --text="Issue forgotten." && echo "Issue $repo forgotten. Files at location above." &>> "$dgitlog"
+rm "$repo" && zenity --info --title="Success" --text="Repo forgotten." && echo "Repo $repo forgotten. Files at location above." &>> "$dgitlog"
 
