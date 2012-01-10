@@ -2,6 +2,15 @@
 dgitlog=~/"dgit-log"
 echo "dgit logfile: $dgitlog"
 
+#Put a blank line on the log
+echo >> "$dgitlog"
+
+#Timestamp every access of this file to the log
+date >> "$dgitlog"
+
+#Output the running program's name to the log
+echo "Runing ${BASH_SOURCE[*]}" >> "$dgitlog"
+
 #The name of the configuration file that will be searched
 confname="newstools.conf"
 echo "Configuration file name: $confname"
