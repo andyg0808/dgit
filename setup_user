@@ -17,7 +17,7 @@ else
 fi
 
 #Write each .desktop file
-for file in dgit-checkout dgit-clone dgit-forget dgit-init dgit-merge dgit-update
+for file in dgit-checkout dgit-clone dgit-forget dgit-init dgit-merge
 do
 cat <<EOF > "$datadir/applications/dgittools-$file.desktop"
 [Desktop Entry]
