@@ -24,7 +24,7 @@ git init &>> "$dgitlog"
 
 ln --symbolic --target-directory "$list" "$absname" &>> "$dgitlog"
 
-cp /usr/local/bin/update "$absname" &>> "$dgitlog"
+cp "$SOURCE"/dgit-update "$absname/" &>> "$dgitlog"
 
 git add "update" &>> "$dgitlog"
 
