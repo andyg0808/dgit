@@ -1,5 +1,6 @@
 #The name of the configuration file that will be searched
 confname="newstools.conf"
+echo "Configuration file name: $confname"
 
 #Determines the location of the config file and returns its contents.
 #Expects $SOURCE to be set, which is the directory in which the script files are
@@ -48,10 +49,11 @@ conffolder()
 	then
 		cat "/etc/dgit/$confname"
 		
-
 	else
 		#Die with an error
 		exit 50
 	fi
-	
 }
+
+list=$(conffolder)
+echo "Location for symlinks to repos: $list"
