@@ -12,7 +12,7 @@ date >> "$dgitlog"
 echo "Runing ${BASH_SOURCE[*]}" >> "$dgitlog"
 
 #The name of the configuration file that will be searched
-confname="newstools.conf"
+confname="dgit.conf"
 echo "Configuration file name: $confname"
 
 #Determines the location of the config file and returns its contents.
