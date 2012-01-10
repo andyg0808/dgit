@@ -1,7 +1,7 @@
 #!/bin/bash
 SOURCE="$(readlink -f $(dirname $BASH_SOURCE))"
 source "$SOURCE/dgit-locations.sh"
-list=$(conffolder())
+list=$(conffolder)
 
 cd "$list"
 
