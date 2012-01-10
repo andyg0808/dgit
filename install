@@ -25,6 +25,9 @@ do
 	ln --symbolic --target-directory="$1" "$file" 
 done
 
+source "$binfolder/dgit-locations.sh"
+
 #Create the configuration file
-echo "$2/" > "$3"/newstools.conf
+#$confname is set by the file sourced above (dgit-locations.sh)
+echo "$2/" > "$3"/"$confname"
 
