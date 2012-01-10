@@ -17,7 +17,8 @@ git add . &>> "$dgitlog"
 #Read the current status and include it in the automated git commit message.
 status="$(git status)"
 
-git commit -m <<EOF &>> "$dgitlog"
+#Read the commit message from stdin (the heredoc)
+git commit --file=- <<EOF &>> "$dgitlog"
 Automated commit.
 
 Status was as follows:
