@@ -1,6 +1,5 @@
 #!/bin/bash
-SOURCE="$(readlink -f $(dirname $BASH_SOURCE))"
-source "$SOURCE/dgit-locations"
+source "dgit-locations"
 
 #Determine branch name
 if [ -e ../"repobranch" ]
