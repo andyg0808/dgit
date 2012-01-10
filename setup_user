@@ -1,0 +1,31 @@
+#!/bin/bash
+#Find datadir according to spec at
+#http://standards.freedesktop.org/menu-spec/menu-spec-1.1.html#third-party-howto
+if [ -n "$XDG_DATA_HOME" ]
+then
+	datadir="$XDG_DATA_HOME"
+else
+	datadir="$HOME/.local/share"
+fi
+
+#Find sysconfigdir according to spec at same location
+if [ -n "$XDG_CONFIG_HOME" ]
+then
+	sysconfdir="$XDG_CONFIG_HOME"
+else
+	sysconfdir="$HOME/.config"
+fi
+
+#Write each .desktop file
+for file in dgit-checkout dgit-clone dgit-forget dgit-init dgit-merge dgit-update
+do
+echo <<EOF > "$datadir/applications/dgittools-$file.desktop"
+[Desktop Entry]
+Encoding=UTF-8
+Type=Utility
+
+Exec="$file"
+
+Name="$file"
+EOF
+done
