@@ -1,12 +1,13 @@
 #!/bin/bash
-if [ -z "$1" -o -z "$2" -o -z "$3"]
+if [[ -z "$1" || -z "$2" || -z "$3" ]]
 then
 #pathDir is the directory into which to symlink all the executables
 
 #folderLinkDir is the directory into which symlinks to newly inited repos will
 #be placed
 
-	echo "Usage: $(basename) pathDir folderLinkDir configDir"
+	echo "Usage: $(basename $0) pathDir folderLinkDir configDir"
+	exit 1
 fi
 
 echo "Linking files in ./bin subfolder of current folder into $1"
