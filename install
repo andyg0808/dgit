@@ -26,7 +26,7 @@ do
 	ln --symbolic --target-directory="$1" "$file" 
 done
 
-source "$binfolder/dgit-locations.sh"
+source "$binfolder/dgit-locations"
 
 #Create the configuration file
 #$confname is set by the file sourced above (dgit-locations.sh)

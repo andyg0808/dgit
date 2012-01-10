@@ -1,6 +1,6 @@
 #!/bin/bash
 SOURCE="$(readlink -f $(dirname $BASH_SOURCE))"
-source "$SOURCE/dgit-locations.sh"
+source "$SOURCE/dgit-locations"
 list=$(conffolder)
 
 folder=$(zenity --file-selection --title="Choose directory to initialize" --directory)
