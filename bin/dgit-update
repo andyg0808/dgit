@@ -13,7 +13,16 @@ fi
 
 #Add all files in the directory, commit them
 git add . &>> "$dgitlog"
-git commit -m "Automated commit." &>> "$dgitlog"
+
+#Read the current status and include it in the automated git commit message.
+status="$(git status)"
+
+git commit -m <<EOF &>> "$dgitlog"
+Automated commit.
+
+Status was as follows:
+$status
+EOF
 
 #Pull any changes since last update
 git pull "origin" "$uname" &>> "$dgitlog"
