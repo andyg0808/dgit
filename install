@@ -1,38 +1,30 @@
 #!/bin/bash
-folder=$(zenity --file-selection --title="Choose standard directory to store links in:" --directory)
-if [ ! $? -o -z "$folder" ]
+if [ -z "$1" -o -z "$2" -o -z "$3"]
 then
-	exit 0
-fi
-echo "Folder $folder chosen"
+#pathDir is the directory into which to symlink all the executables
 
-#Resolve the folder name to an absolute path
-absname=$(readlink --canonicalize-existing --no-newline "$folder")
-if [ ! $? ]
-then
-	echo "Need existing directory!"
-exit 1
+#folderLinkDir is the directory into which symlinks to newly inited repos will
+#be placed
+
+	echo "Usage: $(basename) pathDir folderLinkDir configDir"
 fi
+
+echo "Linking files in ./bin subfolder of current folder into $1"
+
+binfolder="$(readlink -f $(dirname $BASH_SOURCE)/bin)"
 
 #Make the storage folder writable by everyone
-chmod a+w "$folder"
-
-#Move to the source directory
-cd "$(dirname $0)"/bin
+chmod a+w "$2"
 
 #Set the files executable
-chmod a+x init setup uninit update checkout merge
+chmod a+x "$binfolder"/*
 
-#Install the files
-sudo cp init setup uninit update checkout merge /usr/local/bin/
+#Link the files into the bin folder
+for file in "$binfolder"/*
+do
+	ln --symbolic --target-directory="$1" "$file" 
+done
 
-#Add a configuration file
-sudo mkdir /usr/local/etc/newstools
-sudo echo "$folder" > /usr/local/etc/newstools
-
-#Function to get the directory name:
-getlinkdir()
-{
-	linkdir="$(cat /usr/local/etc/newstools)"
-}
+#Create the configuration file
+echo "$2/" > "$3"/newstools.conf
 
