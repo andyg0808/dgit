@@ -1,16 +1,6 @@
 #!/bin/bash
 source "dgit-locations"
 
-#Determine branch name
-if [ -e ../"repobranch" ]
-then
-	read uname < ../repobranch
-	echo "Using ../repobranch to determine the uname. uname is $uname" &>> "$dgitlog"
-else
-	uname=$(id -un)
-	echo "Using id -un to determine the uname. uname is $uname" &>> "$dgitlog"
-fi
-
 #Add all files in the directory, commit them
 git add . &>> "$dgitlog"
 
@@ -26,10 +16,10 @@ $status
 EOF
 
 #Pull any changes since last update
-git pull "origin" "$uname" &>> "$dgitlog"
+git pull "origin" &>> "$dgitlog"
 
 #Push the changes to local branch since last update. Create remote branch if needed
-git push "origin" "$uname" &>> "$dgitlog"
+git push "origin" &>> "$dgitlog"
 
 #then
 zenity --info --title="Updated Successfully" --text="The main store has been successfully updated."

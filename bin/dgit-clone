@@ -48,9 +48,6 @@ else
 	echo "Using id -un to determine the uname. uname is $uname" &>> "$dgitlog"
 fi
 
-git branch "$uname" &>> "$dgitlog"
-git checkout "$uname" &>> "$dgitlog"
-
 #Now reconfigure parent repo
 cd "$list/$repo"
 git remote add "$uname" "$absname" &>> "$dgitlog"
