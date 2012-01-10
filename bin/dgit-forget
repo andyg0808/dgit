@@ -13,7 +13,7 @@ then
 fi
 echo "Issue $repo chosen" &>> "$dgitlog"
 
-ln -l "$repo" &>> "$dgitlog"
+ls -l "$repo" &>> "$dgitlog"
 
 rm "$repo" && zenity --info --title="Success" --text="Issue forgotten." && echo "Issue $repo forgotten. Files at location above." &>> "$dgitlog"
 
