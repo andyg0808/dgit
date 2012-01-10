@@ -1,5 +1,8 @@
 #!/bin/bash
-list="$(cat /usr/local/etc/newstools)"
+SOURCE="$(readlink -f $(dirname $BASH_SOURCE))"
+source "$SOURCE/dgit-locations.sh"
+list=$(conffolder())
+
 cd "$list"
 
 repo=$(zenity --list --text="Choose a issue to forget" --column "Issue Name" *)

@@ -1,5 +1,7 @@
 #!/bin/bash
-linkdir="$(cat /usr/local/etc/newstools)"
+SOURCE="$(readlink -f $(dirname $BASH_SOURCE))"
+source "$SOURCE/dgit-locations.sh"
+list=$(conffolder())
 
 folder=$(zenity --file-selection --title="Choose directory to initialize" --directory)
 if [ ! $? -o -z "$folder" ]
@@ -20,7 +22,7 @@ cd "$absname"
 
 git init
 
-ln --symbolic --target-directory "$linkdir" "$absname"
+ln --symbolic --target-directory "$list" "$absname"
 
 cp /usr/local/bin/update "$absname"
 
