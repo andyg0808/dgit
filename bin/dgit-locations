@@ -1,3 +1,7 @@
+#The name of the dgit logfile
+dgitlog=~/"dgit-log"
+echo "dgit logfile: $dgitlog"
+
 #The name of the configuration file that will be searched
 confname="newstools.conf"
 echo "Configuration file name: $confname"

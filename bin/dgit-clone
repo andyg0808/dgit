@@ -11,14 +11,14 @@ if [ ! $? -o -z "$repo" ]
 then
 	exit 0
 fi
-echo "Issue $repo chosen"
+echo "Issue $repo chosen" &>> "$dgitlog"
 
 folder=$(zenity --file-selection --title="Choose directory to create issue files in" --directory)
 if [ ! $? -o -z "$folder" ]
 then
 	exit 0
 fi
-echo "Folder $folder chosen"
+echo "Folder $folder chosen" &>> "$dgitlog"
 
 #Resolve the folder name to an absolute path
 absname=$(readlink --canonicalize-existing --no-newline "$folder")
@@ -33,7 +33,7 @@ cd "$absname"
 break=0
 
 #Clone the selected repo
-git clone "$list/$repo"
+git clone "$list/$repo" &>> "$dgitlog"
 
 #cd into the new repo
 cd "$repo"
@@ -42,16 +42,18 @@ cd "$repo"
 if [ -e ../"repobranch" ]
 then
 	read uname < ../repobranch
+	echo "Using ../repobranch to determine the uname. uname is $uname" &>> "$dgitlog"
 else
 	uname=$(logname)
+	echo "Using logname to determine the uname. uname is $uname" &>> "$dgitlog"
 fi
 
-git branch "$uname"
-git checkout "$uname"
+git branch "$uname" &>> "$dgitlog"
+git checkout "$uname" &>> "$dgitlog"
 
 #Now reconfigure parent repo
 cd "$list/$repo"
-git remote add "$uname" "$absname"
+git remote add "$uname" "$absname" &>> "$dgitlog"
 
 #if [ ! $break ]
 #then

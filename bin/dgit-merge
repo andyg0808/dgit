@@ -11,7 +11,7 @@ if [ ! $? -o -z "$repo" ]
 then
 	exit 0
 fi
-echo "Issue $repo chosen"
+echo "Issue $repo chosen" &>> "$dgitlog"
 
 cd "$repo"
 
@@ -22,9 +22,9 @@ if [ ! $? -o -z "$branch" ]
 then
 	exit 0
 fi
-echo "Branch $branch chosen"
+echo "Branch $branch chosen" &>> "$dgitlog"
 
-if git merge "$branch"
+if git merge "$branch" &>> "$dgitlog"
 then
 	zenity --info --title="Success" --text="Successfully merged the changes from branch $branch into branch $current."
 fi

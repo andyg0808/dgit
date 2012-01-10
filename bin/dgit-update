@@ -1,22 +1,26 @@
 #!/bin/bash
+SOURCE="$(readlink -f $(dirname $BASH_SOURCE))"
+source "$SOURCE/dgit-locations"
 
-#Determine branch name
+#Configure new repo
 if [ -e ../"repobranch" ]
 then
 	read uname < ../repobranch
+	echo "Using ../repobranch to determine the uname. uname is $uname" &>> "$dgitlog"
 else
 	uname=$(logname)
+	echo "Using logname to determine the uname. uname is $uname" &>> "$dgitlog"
 fi
 
 #Add all files in the directory, commit them
-git add .
-git commit -m "Automated commit."
+git add . &>> "$dgitlog"
+git commit -m "Automated commit." &>> "$dgitlog"
 
 #Pull any changes since last update
-git pull "origin" "$uname"
+git pull "origin" "$uname" &>> "$dgitlog"
 
 #Push the changes to local branch since last update. Create remote branch if needed
-git push "origin" "$uname"
+git push "origin" "$uname" &>> "$dgitlog"
 
 #then
 zenity --info --title="Updated successfully" --text="The main store has been successfully updated."

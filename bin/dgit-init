@@ -8,7 +8,7 @@ if [ ! $? -o -z "$folder" ]
 then
 	exit 0
 fi
-echo "Folder $folder chosen"
+echo "Folder $folder chosen" &>> "$dgitlog"
 
 #Resolve the folder name to an absolute path
 absname=$(readlink --canonicalize-existing --no-newline "$folder")
@@ -20,16 +20,16 @@ fi
 
 cd "$absname"
 
-git init
+git init &>> "$dgitlog"
 
-ln --symbolic --target-directory "$list" "$absname"
+ln --symbolic --target-directory "$list" "$absname" &>> "$dgitlog"
 
-cp /usr/local/bin/update "$absname"
+cp /usr/local/bin/update "$absname" &>> "$dgitlog"
 
-git add "update"
+git add "update" &>> "$dgitlog"
 
-git commit -m "Added update to the repo to ensure it comes with every clone"
+git commit -m "Added update to the repo to ensure it comes with every clone" &>> "$dgitlog"
 
-chmod a+w .
+chmod a+w . &>> "$dgitlog"
 
 zenity --info --title="Directory initialized" --text="The selected directory has been initialized."

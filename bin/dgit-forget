@@ -11,6 +11,9 @@ if [ ! $? -o -z "$repo" ]
 then
 	exit 0
 fi
-echo "Issue $repo chosen"
+echo "Issue $repo chosen" &>> "$dgitlog"
 
-rm "$repo" && zenity --info --title="Success" --text="Issue forgotten."
+ln -l "$repo" &>> "$dgitlog"
+
+rm "$repo" && zenity --info --title="Success" --text="Issue forgotten." && echo "Issue $repo forgotten. Files at location above." &>> "$dgitlog"
+
