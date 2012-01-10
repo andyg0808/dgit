@@ -19,13 +19,11 @@ fi
 #Write each .desktop file
 for file in dgit-checkout dgit-clone dgit-forget dgit-init dgit-merge dgit-update
 do
-echo <<EOF > "$datadir/applications/dgittools-$file.desktop"
+cat <<EOF > "$datadir/applications/dgittools-$file.desktop"
 [Desktop Entry]
-Encoding=UTF-8
-Type=Utility
-
-Exec="$file"
-
-Name="$file"
+Type=Application
+Categories=Utility
+Exec=$file
+Name=$file
 EOF
 done
