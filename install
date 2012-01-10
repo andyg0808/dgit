@@ -26,9 +26,14 @@ do
 	ln --symbolic --target-directory="$1" "$file" 
 done
 
+#Get absolute path for the folderLinkDirectory
+flinkdir="$(readlink -f $2)"
+
+#Grab the standard dgit-locations configuration file which provides the filename
+#to use for the configuration file
 source "$binfolder/dgit-locations"
 
 #Create the configuration file
 #$confname is set by the file sourced above (dgit-locations.sh)
-echo "$2/" > "$3"/"$confname"
+echo "$flinkdir/" > "$3"/"$confname"
 
