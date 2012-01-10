@@ -8,8 +8,8 @@ then
 	read uname < ../repobranch
 	echo "Using ../repobranch to determine the uname. uname is $uname" &>> "$dgitlog"
 else
-	uname=$(logname)
-	echo "Using logname to determine the uname. uname is $uname" &>> "$dgitlog"
+	uname=$(id -un)
+	echo "Using id -un to determine the uname. uname is $uname" &>> "$dgitlog"
 fi
 
 #Add all files in the directory, commit them
