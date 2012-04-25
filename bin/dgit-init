@@ -3,6 +3,9 @@ SOURCE="$(readlink -f $(dirname $BASH_SOURCE))"
 source "$SOURCE/dgit-locations"
 list=$(conffolder)
 
+#Create the link directory if it doesn't exist
+mkdir --parents "$list"
+
 folder=$(zenity --file-selection --title="Choose directory to initialize:" --directory)
 if [ ! $? -o -z "$folder" ]
 then
