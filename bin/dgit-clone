@@ -5,6 +5,15 @@ list=$(conffolder)
 
 cd "$list"
 
+#Check that there are some repos to clone
+if [ -z "$(ls)" ]
+then
+	#Tell the user there was nothing
+	zenity --error --title="No repos" --text="No repos have been registered with dgit. Please run dgit-init to create a new repo."
+	exit 1
+fi
+
+
 repo=$(zenity --list --text="Choose a repo to create a working folder for:" --column "Repo Name" *)
 #Check that an item was chosen
 if [ ! $? -o -z "$repo" ]
