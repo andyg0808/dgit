@@ -1,0 +1,59 @@
+#Overview
+This program was written to enable git to be used as a version control system for several people writing articles for a newsletter. The intent was that it should be easy to use and make git primarily a backup tool for plaintext writing.
+
+#Dependencies
+At least the following:
+
+- git
+- zenity
+- bash
+
+#Descriptions
+##dgit-init
+dgit-init creates a new master repository that all the other repos will push/pull from. It also makes a symlink to the new repo in a central location so the other dgit commands are aware of it.
+
+##dgit-clone
+dgit-clone clones an existing main repository. The clone is a full git clone. It also adds the clone as a remote in the main repository it was cloned from. The name of that remote is taken either from the username of the currently logged-in user, or else from the entire contents of a file named repobranch in the directory containing the clone. That is, when the current directory is the clone, the file is "../repobranch".
+
+##dgit-forget
+dgit-forget removes the symlink to a main repo that dgit uses to know of its existence.
+
+##dgit-checkout & dgit-merge
+dgit-checkout and dgit-merge can checkout and merge branches of a repo. Because there's no equivalent dgit-branch, they're not a lot of use to users. The original program design created a branch for each clone of the main repo, and these served to allow the overseer of the main repo to manage those branches.
+
+##dgit-update
+dgit-update is copied into every new repo that dgit-init creates. It commits all files in the repo it's in, and then pull/pushes from origin.
+
+##install
+install _pathDir_ _folderLinkDir_ _configDir_
+
+install is intended to install the dgit programs. It has help that displays when it is run with no arguments.
+
+##setup_user
+setup_user creates menu entries for the dgit programs in a user's freedesktop.org-compatible menu.
+
+#Notes
+* **The program lies about the success of operations.**
+* This program was written over a fairly short time (less than two weeks), so it is somewhat unpolished.
+* An example of that unpolish: if there are no repos available to clone, dgit-clone would offer to clone *. (This should now be fixed)
+* This documentation is intended for users familiar with git to use when setting up dgit. Apologies to non-git-users everywhere.
+* All the programs are intended to be run without arguments from an X11 system, except install.
+
+
+#License
+dgit--A primitive git GUI
+Copyright (C) 2011-2012  andyg0808
+
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
